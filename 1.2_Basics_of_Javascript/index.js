@@ -88,3 +88,79 @@ function sumFind(num) {
 }
 
 console.log(sumFind(10));
+
+// Write a function that takes a user as an input and greets them with their name and age
+
+function greetUsr(name, age) {
+  let user = {
+    name: name,
+    age: age,
+  };
+  return `hello ${user.name}, your age is ${user.age}`;
+}
+
+console.log(greetUsr("purv", 21));
+
+// Assignment #2
+// Write a function that takes a new object as input which has name , age  and gender and greets the user with their gender (Hi Mr/Mrs/Others harkirat, your age is 21)
+
+function greet(user) {
+  if (user.age >= 18) {
+    return `Hello Mr. ${user.name} your age is ${user.age} and you are eligible for voting.`;
+  } else {
+    return `Hello Mr. ${user.name} your age is ${user.age} and you are not eligible for voting.`;
+  }
+}
+
+console.log(greet({ name: "purv", age: 21, gender: "male" }));
+
+// Write a function that takes an array of numbers as input, and returns a new array with only even values.
+
+function filterEven(nums) {
+  return nums.filter((evenNum) => evenNum % 2 == 0);
+}
+
+console.log(filterEven([10, 21, 31, 11, 100]));
+
+// Write a function that takes an array of users as inputs and returns only the users who are more than 18 years old
+
+function userAge(users) {
+  return users.filter(user=> user.age > 18);
+}
+
+const usersArray = [
+    { name: "Alice", age: 17, gender: "female" },
+    { name: "Bob", age: 21, gender: "male" },
+    { name: "Charlie", age: 18, gender: "male" },
+    { name: "Diana", age: 25, gender: "female" }
+];
+
+const adults = userAge(usersArray);
+console.log(adults);
+
+
+// Create a function that takes an array of objects as input,
+// and returns the users whose age > 18 and are male
+
+
+function getMales(usersObj) {
+    const result = {};
+
+    for (let key in usersObj) {
+        const user = usersObj[key];
+        if (user.age > 18 && user.gender == 'male') {
+            result[key] = user;
+        }
+    }
+
+    return result;
+}
+
+
+console.log(getMales( {
+    user1: { name: "Alice", age: 17, gender: "female" },
+    user2: { name: "Bob", age: 21, gender: "male" },
+    user3: { name: "Charlie", age: 19, gender: "male" },
+    user4: { name: "Diana", age: 25, gender: "female" },
+    user5: { name: "Eli", age: 18, gender: "male" }
+}));
