@@ -36,4 +36,51 @@ function callback() {
   console.log("3 seconds have passed!");
 }
 
-setTimeoutPromisified(3000).then(callback)
+setTimeoutPromisified(3000).then(callback);
+
+
+
+// create promisified function for fs.readfile, fs.writefile.
+
+
+const fs = require('fs');
+
+function readFilePromisified(filePath) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf-8', (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
+
+function writeFilePromisified(filePath, data) {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(filePath, data, 'utf-8', (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve('File written successfully');
+      }
+    });
+  });
+}
+
+readFilePromisified('test.txt')
+  .then(content => {
+    console.log('File content:', content);
+  })
+  .catch(error => {
+    console.error('Error reading file:', error);
+  });
+
+writeFilePromisified('test.txt', 'This is a new line of text.')
+  .then(message => {
+    console.log(message);
+  })
+  .catch(error => {
+    console.error('Error writing file:', error);
+  });
