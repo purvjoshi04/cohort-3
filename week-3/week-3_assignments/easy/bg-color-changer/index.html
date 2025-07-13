@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        justify-content: space-evenly;
+        display: flex;
+        padding: 5px;
+        margin: 5px;
+        gap: 8px;
+      }
+      .container button {
+        margin: 0;
+        padding: 10px 20px;
+        border-radius: 12px;
+      }
+      .color-btn {
+        margin: 0;
+        padding: 8px 16px;
+        border-radius: 12px;
+        color: white;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .color-btn[data-color="yellow"] {
+        color: black;
+      }
+      .color-btn[data-color="red"] {
+        background: red;
+      }
+      .color-btn[data-color="yellow"] {
+        background: yellow;
+      }
+      .color-btn[data-color="blue"] {
+        background: blue;
+      }
+      .color-btn[data-color="black"] {
+        background: black;
+      }
+      .color-btn[data-color="green"] {
+        background: green;
+      }
+      .color-btn[data-color="purple"] {
+        background: purple;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button class="color-btn" data-color="red">Red</button>
+      <button class="color-btn" data-color="yellow">Yellow</button>
+      <button class="color-btn" data-color="blue">Blue</button>
+      <button class="color-btn" data-color="black">Black</button>
+      <button class="color-btn" data-color="green">Green</button>
+      <button class="color-btn" data-color="purple">Purple</button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
