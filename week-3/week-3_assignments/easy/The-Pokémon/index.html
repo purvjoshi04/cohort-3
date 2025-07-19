@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Finder</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        #pokemon-card { border: 1px solid #ccc; border-radius: 8px; padding: 20px; width: 250px; margin: 20px auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        #pokemon-card img { width: 150px; height: 150px; }
+        #pokemon-id-input { padding: 8px; margin-right: 10px; }
+        button { padding: 8px 15px; cursor: pointer; }
+    </style>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.6/axios.min.js"></script>
+<body>
+    <h1>Find a Pokémon!</h1>
+    <input type="number" id="pokemon-id-input" placeholder="Enter Pokémon ID (e.g., 25)">
+    <button onclick="getPokemonData()">Get Pokémon Data</button>
+    <div id="pokemon-display"></div>
+
+<script>
+    async function getPokemonData() {
+        const pokemonIdInput = document.getElementById('pokemon-id-input');
+        const id = pokemonIdInput.value;
+        const pokemonDisplay = document.getElementById('pokemon-display');
+
+        if (!id) {
+            pokemonDisplay.innerHTML = '<p style="color: red;">Please enter a Pokémon ID.</p>';
+            return;
+        }
+
+        try {
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+            const pokemon = response.data;
+            
+            const pokemonHTML = `
+                <div id="pokemon-card">
+                    <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
+                    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+                    <p><strong>ID:</strong> ${pokemon.id}</p>
+                    <p><strong>Type:</strong> ${pokemon.types.map(typeInfo => typeInfo.type.name).join(', ')}</p>
+                    <p><strong>Height:</strong> ${pokemon.height / 10} m</p>
+                    <p><strong>Weight:</strong> ${pokemon.weight / 10} kg</p>
+                </div>
+            `;
+            
+            pokemonDisplay.innerHTML = pokemonHTML;
+
+        } catch (error) {
+            console.error('Error fetching Pokémon data:', error);
+            pokemonDisplay.innerHTML = `<p style="color: red;">Could not find Pokémon with ID: ${id}. Please try another.</p>`;
+        }
+    }
+</script>
+</body>
+</html>
