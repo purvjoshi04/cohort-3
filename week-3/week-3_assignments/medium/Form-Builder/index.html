@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            height: calc(100vh - 40px);
+        }
+
+        .panel {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            flex: 1;
+        }
+
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-builder {
+            min-height: 100%;
+        }
+
+        .form-preview {
+            min-height: 100%;
+            background: #fafafa;
+        }
+
+        .field-group {
+            margin-bottom: 25px;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #ffffff;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #4285f4;
+        }
+
+        .form-control::placeholder {
+            color: #999;
+        }
+
+        select.form-control {
+            background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='5'><path fill='%23666' d='m0 1 2 2 2-2z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 12px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #3367d6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(66, 133, 244, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(66, 133, 244, 0.3);
+        }
+
+        .preview-area {
+            background: #ffffff;
+            border-radius: 6px;
+            padding: 20px;
+            min-height: 300px;
+            border: 2px dashed #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+        }
+
+        .preview-form {
+            width: 100%;
+        }
+
+        .preview-field {
+            margin-bottom: 20px;
+        }
+
+        .preview-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .preview-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .panel {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="panel form-builder">
+            <h2 class="panel-title">Form Builder</h2>
+            
+            <div class="field-group">
+                <label class="field-label">Select Field Type</label>
+                <select class="form-control" id="fieldType">
+                    <option value="">Text Input</option>
+                    <option value="text">Text Input</option>
+                    <option value="email">Email</option>
+                    <option value="number">Number</option>
+                    <option value="textarea">Text Area</option>
+                    <option value="select">Dropdown</option>
+                    <option value="checkbox">Checkbox</option>
+                    <option value="radio">Radio Button</option>
+                </select>
+            </div>
+            
+            <div class="field-group">
+                <label class="field-label">Field Label</label>
+                <input type="text" class="form-control" id="fieldLabel" placeholder="Enter field label">
+            </div>
+            
+            <button class="btn-primary" onclick="addField()">Add Field</button>
+        </div>
+        <div class="panel form-preview">
+            <h2 class="panel-title">Form Preview</h2>
+            
+            <div class="preview-area" id="previewArea">
+                <div class="empty-state">
+                    Your form fields will appear here...
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
