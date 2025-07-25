@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 const app = express();
 app.use(express.json());
 
-const JWT_SECRET = "qswqdewfwswd243462";
+const JWT_SECRET = "";
 const users = [];
 
 app.post("/signup", (req, res) => {
