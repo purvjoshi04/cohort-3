@@ -2,7 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 
 const app = express();
-const JWT_SECRET = "dwfewfcqwe13443";
+const JWT_SECRET = "";
 app.use(express.json());
 
 const users = [];
