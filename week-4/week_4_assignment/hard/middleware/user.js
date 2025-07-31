@@ -4,17 +4,23 @@ const dotenv = require('dotenv')
 dotenv.config({ path: './.env' })
 
 function userMiddleware(req, res, next) {
-    // Implement user auth logic
-    const token = req.headers.token;
-    const decodedInfo = jwt.verify(token, process.env.JWT_SECRET);
+    try {
+        const token = req.headers.token;
+        if (!token) {
+            return res.status(401).json({
+                message: "No token provided. You are not logged in!"
+            });
+        }
+        const decodedInfo = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (decodedInfo) {
         req.userId = decodedInfo.id;
         next();
-    } else {
-        res.json({
-            message: "You are not logged in!"
-        })
+        
+    } catch (error) {
+        console.error('JWT verification error:', error.message);
+        return res.status(401).json({
+            message: "Invalid token. You are not logged in!"
+        });
     }
 }
 
