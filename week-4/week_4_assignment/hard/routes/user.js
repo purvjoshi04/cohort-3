@@ -63,6 +63,9 @@ router.get('/todos', userMiddleware, async (req, res) => {
 
 router.post('/logout', userMiddleware, (req, res) => {
     // Implement logout logic
+    res.json({
+        message: "Logged out successfully!"
+    })
 });
 
 module.exports = router
