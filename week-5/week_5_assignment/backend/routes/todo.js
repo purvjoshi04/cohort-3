@@ -1,11 +1,8 @@
-//  start writing your code from here
-
-const express = require("express");
+const express = require('express');
 const { Todo } = require("../db");
-const { authenticateJwt } = require("../middleware/user.js");
+const { authenticateJwt } = require("../middleware/user");
 
 const router = express.Router();
-
 router.use(authenticateJwt);
 
 router.post("/", async (req, res) => {
@@ -13,25 +10,27 @@ router.post("/", async (req, res) => {
 
     if (!createPayload.title) {
         return res.status(400).json({
-            message: "You sent the wrong inputs"
+            msg: "You sent the wrong inputs",
         });
     }
+
     try {
+        // Save to MongoDB
         const newTodo = await Todo.create({
             title: createPayload.title,
-            comepleted: false,
-            userId: req.userId
+            completed: false,
+            userId: req.userId,
         });
 
         res.status(201).json({
-            message: "Todo created",
-            todo: newTodo
+            msg: "Todo created",
+            todo: newTodo,
         });
     } catch (error) {
-        req.status(500).json({
-            message: "Error creating todo",
-            error: error.message
-        })
+        res.status(500).json({
+            msg: "Error creating todo",
+            error: error.message,
+        });
     }
 });
 
@@ -41,42 +40,42 @@ router.get("/", async (req, res) => {
 
         res.json({
             todos: todos,
-        })
+        });
     } catch (error) {
         res.status(500).json({
-            message: "Error fetching todos",
-            error: error.message
+            msg: "Error fetching todos",
+            error: error.message,
         });
     }
 });
-
 
 router.put("/:id", async (req, res) => {
     const { id } = req.params;
     const updatePayload = req.body;
 
-    if (typeof updatePayload.comepleted === "undefined") {
-        return res.status(400).status.json({
-            message: "You must provise a completed status."
+    // Basic input check
+    if (typeof updatePayload.completed === 'undefined') {
+        return res.status(400).json({
+            msg: "You must provide a completed status.",
         });
     }
 
     try {
         const result = await Todo.updateOne(
             { _id: id },
-            { comepleted: updatePayload.comepleted }
+            { completed: updatePayload.completed }
         );
 
         res.json({
-            message: "Todo marked as completed",
-            todos: result
-        })
+            msg: "Todo marked as completed.",
+        });
     } catch (error) {
         res.status(500).json({
-            message: "Error updating todo.",
+            msg: "Error updating todo.",
             error: error.message,
-        })
+        });
     }
 });
+
 
 module.exports = router;

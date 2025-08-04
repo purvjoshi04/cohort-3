@@ -1,59 +1,40 @@
-//  start writing your code from here
-
-const express = require("express");
+const express = require('express');
 const jwt = require('jsonwebtoken');
+const { authenticateJwt, SECRET } = require("../middleware/user");
 const { User } = require("../db");
 const router = express.Router();
-require('dotenv').config();
 
-router.post("/singup", async (req, res) => {
+router.post('/signup', async (req, res) => {
     const { username, password } = req.body;
     try {
-        const user = await User.findOne({
-            username
-        });
+        const user = await User.findOne({ username });
         if (user) {
-            return res.status(403).json({ message: "User already exists" });
+            return res.status(403).json({ message: 'User already exists' });
         }
+
         const newUser = new User({ username, password });
         await newUser.save();
 
-        const token = jwt.sign({ userId: newUser._id }, process.env.SECRET, { expiresIn: "1h" });
-        res.json({ message: "User created successfully", token});
+        const token = jwt.sign({ userId: newUser._id }, SECRET, { expiresIn: '1h' });
+        res.json({ message: 'User created successfully', token });
     } catch (error) {
-        res.status(500).json({
-            message: "creating user", error
-        });
+        res.status(500).json({ message: 'Error creating user', error });
     }
 });
 
-router.post('/signin', async (req, res)=>{
+router.post('/signin', async (req, res) => {
     const { username, password } = req.body;
-
     try {
-        const user = await User.findOne({
-            username,
-            password
-        });
-
+        const user = await User.findOne({ username, password });
         if (user) {
-            const token = jwt.sign({
-                userId: user._id
-            }, process.env.SECRET, {expiresIn: "1h"});
+            const token = jwt.sign({ userId: user._id }, SECRET, { expiresIn: '1h' });
 
-            res.json({
-                message: "Logged in successfully", token
-            });
-        } else{
-            res.status(403). json({
-                message: "Invalid username or password"
-            });
+            res.json({ message: 'Logged in successfully', token });
+        } else {
+            res.status(403).json({ message: 'Invalid username or password' });
         }
     } catch (error) {
-        res.status(500).json({
-            message: "Error signing in",
-            error
-        })
+        res.status(500).json({ message: 'Error signing in', error });
     }
 });
 
