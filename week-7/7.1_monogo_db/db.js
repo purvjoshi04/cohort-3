@@ -5,7 +5,7 @@ const ObjectId = schema.ObjectId;
 
 
 const User = new schema({
-    email: String,
+    email: { type: String, unique: true },
     password: String,
     name: String
 });
