@@ -42,7 +42,7 @@ export async function deleteTodo(req, res, next) {
 
     if (todoIndex !== -1) {
         todos.splice(todoIndex, 1);
-        req.status(404).json({ message: 'Todo not found' });
+        res.status(404).json({ message: 'Todo not found' });
     }
 }
 
