@@ -1,32 +1,79 @@
 body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #2a0c12, #16213e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: #e0e0e0;
+}
+
+.container {
+  background: rgba(19, 16, 28, 0.05);
+  border-radius: 20px;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #387e7d;
+}
+
+button {
+  background-color: #c9184a;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#bookmark-url,
+#bookmark-category {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  font-size: 16px;
+}
+
+
+#bookmark-list {
+  list-style-type: none;
+  padding: 0;
+
+}
+
+#bookmark-list li {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button.favorite-btn {
   /*start here  */
- }
-   
- .container {
-  /*start here  */
- }
-   
- h1 {
-    /*start here  */
- }
-    
- button {
-   /*start here  */
- }
-   
- #bookmark-list {
-  /*start here  */
- }
-   
- #bookmark-list li {
-  /*start here  */
- }
-   
- button.favorite-btn {
-  /*start here  */
- }
-   
- button.delete-btn {
-  /*start here  */
- }
-   
+}
+
+button.delete-btn {
+  background-color: #ff4d6d;
+}
