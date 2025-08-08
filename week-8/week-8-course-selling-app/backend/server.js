@@ -24,4 +24,3 @@ mongoose
     )
     .catch((error) => console.log(`${error} did not connect`));
 
-app.listen(process.env.PORT || 3000)
