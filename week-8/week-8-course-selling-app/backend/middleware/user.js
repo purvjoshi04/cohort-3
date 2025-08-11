@@ -1,6 +1,4 @@
 const jwt = require("jsonwebtoken");
-const dotenv = require('dotenv');
-dotenv.config("../.env")
 
 function userMiddleware (req, res, next) {
     const token = req.headers.token;
