@@ -1,11 +1,21 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require('dotenv');
+dotenv.config("../.env")
 
-function userMiddleware (req, res) {
-    const token = req.headers;
-    const decodedInfo = jwt.verify(token, process.env.JWT_SECRET);
+function userMiddleware (req, res, next) {
+    const token = req.headers.token;
+    const decodedInfo = jwt.verify(token, process.env.JWT_USER_SECRET);
 
     if (decodedInfo) {
-        req.userId = qw
+        req.userId = decodedInfo.id;
+        next();
+    }else{
+        res.status(403).json({
+            message: "You are not signed in!"
+        })
     }
+}
+
+module.exports= {
+    userMiddleware: userMiddleware
 }
