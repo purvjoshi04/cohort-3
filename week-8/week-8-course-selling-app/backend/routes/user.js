@@ -2,47 +2,14 @@ const { Router } = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { z } = require("zod");
-const { userModel } = require("../db/db.js");
+const { userModel, purchaseModel, courseModel } = require("../db/db.js");
+const { userMiddleware } = require("../middleware/user.js");
 
 const userRouter = Router();
 
-userRouter.post('/signin', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-
-        const user = await userModel.findOne({
-            email: email,
-        });
-
-        if (!user) {
-            return res.status(403).json({
-                message: "User does not exist in our DB."
-            });
-        }
-
-        const passwordCompare = await bcrypt.compare(password, user.password);
-
-        if (passwordCompare) {
-            const token = jwt.sign({ id: user._id.toString() }, process.env.JWT_USER_SECRET);
-            res.json({
-                token: token
-            });
-        } else {
-            res.status(403).json({
-                message: "Wrong credentials!"
-            });
-        }
-    } catch (error) {
-        console.error("Login error:", error);
-        res.status(500).json({
-            message: "Something went wrong during login"
-        });
-    }
-});
-
 userRouter.post('/signup', async (req, res) => {
     const requiredBody = z.object({
-        email: z.string().email({ message: "Invalid email format" }),
+        email: z.email({ message: "Invalid email format" }),
         password: z.string()
             .min(8, { message: "Password must be at least 8 characters" })
             .refine((password) => /[A-Z]/.test(password), {
@@ -105,9 +72,53 @@ userRouter.post('/signup', async (req, res) => {
     }
 });
 
-userRouter.get('/purchases', (req, res) => {
+userRouter.post('/signin', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await userModel.findOne({
+            email: email,
+        });
+
+        if (!user) {
+            return res.status(403).json({
+                message: "User does not exist in our DB."
+            });
+        }
+
+        const passwordCompare = await bcrypt.compare(password, user.password);
+
+        if (passwordCompare) {
+            const token = jwt.sign({ id: user._id.toString() }, process.env.JWT_USER_SECRET);
+            res.json({
+                token: token
+            });
+        } else {
+            res.status(403).json({
+                message: "Wrong credentials!"
+            });
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        res.status(500).json({
+            message: "Something went wrong during login"
+        });
+    }
+});
+
+
+userRouter.get('/purchases', userMiddleware, async (req, res) => {
+    const userId = req.userId;
+
+    const purchases = await purchaseModel.find({
+        userId
+    });
+    const courseData = await courseModel.find({
+        _id: { $in: purchases.map(id => id.courseId) }
+    })
     res.json({
-        msg: "purchase course user"
+        purchases,
+        courseData
     });
 });
 

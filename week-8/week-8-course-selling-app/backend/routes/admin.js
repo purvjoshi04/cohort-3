@@ -6,40 +6,6 @@ const { z } = require("zod");
 const { adminModel, courseModel } = require("../db/db.js");
 const { adminMiddleware } = require("../middleware/admin.js");
 
-adminRouter.post('/signin', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-
-        const admin = await adminModel.findOne({
-            email: email,
-        });
-
-        if (!admin) {
-            return res.status(403).json({
-                message: "User does not exist in our DB."
-            });
-        }
-
-        const passwordCompare = await bcrypt.compare(password, admin.password);
-
-        if (passwordCompare) {
-            const token = jwt.sign({ id: admin._id.toString() }, process.env.JWT_ADMIN_SECRET);
-            res.json({
-                token: token
-            });
-        } else {
-            res.status(403).json({
-                message: "Wrong credentials!"
-            });
-        }
-    } catch (error) {
-        console.error("Login error:", error);
-        res.status(500).json({
-            message: "Something went wrong during login"
-        });
-    }
-})
-
 adminRouter.post('/signup', async (req, res) => {
     const requiredBody = z.object({
         email: z.string().email({ message: "Invalid email format" }),
@@ -104,6 +70,41 @@ adminRouter.post('/signup', async (req, res) => {
         });
     }
 })
+
+adminRouter.post('/signin', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const admin = await adminModel.findOne({
+            email: email,
+        });
+
+        if (!admin) {
+            return res.status(403).json({
+                message: "User does not exist in our DB."
+            });
+        }
+
+        const passwordCompare = await bcrypt.compare(password, admin.password);
+
+        if (passwordCompare) {
+            const token = jwt.sign({ id: admin._id.toString() }, process.env.JWT_ADMIN_SECRET);
+            res.json({
+                token: token
+            });
+        } else {
+            res.status(403).json({
+                message: "Wrong credentials!"
+            });
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        res.status(500).json({
+            message: "Something went wrong during login"
+        });
+    }
+})
+
 
 adminRouter.post('/course', adminMiddleware, async (req, res) => {
     const adminId = req.userId;
