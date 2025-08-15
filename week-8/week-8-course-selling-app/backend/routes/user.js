@@ -24,8 +24,6 @@ userRouter.post('/signup', async (req, res) => {
             .refine((password) => /[!@#$%^&*]/.test(password), {
                 message: "Password must contain at least one special character (!@#$%^&*)",
             }),
-        firstName: z.string(),
-        lastName: z.string()
     });
 
     const parsedData = requiredBody.safeParse(req.body);
@@ -42,7 +40,7 @@ userRouter.post('/signup', async (req, res) => {
         });
     }
 
-    const { email, password, firstName, lastName } = parsedData.data;
+    const { email, password } = parsedData.data;
 
     try {
         const userExisted = await userModel.findOne({ email });
@@ -57,8 +55,6 @@ userRouter.post('/signup', async (req, res) => {
         await userModel.create({
             email,
             password: hashedPassword,
-            firstName,
-            lastName
         });
 
         return res.status(201).json({
