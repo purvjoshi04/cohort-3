@@ -1,23 +1,29 @@
-function Post() {
-    return (
-        <>
-            <div style={{ width: 200, backgroundColor: "white", borderRadius: 10, borderColor: "gray", borderWidth: 10, padding: 20 }} >
-                <div style={{ display: "flex" }}>
-                    <img src="https://imgs.search.brave.com/rwE-hC6ESt3hBJZhImPkb-KvU26bLDKVe-OKv1y50-M/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzE0LzQz/LzU1LzE0NDM1NWQ3/YjM2YzVmNjQ2NDM1/NDIzNzk4MjgxY2U5/LmpwZw" style={{ borderRadius: 3, width: 40, height: 40 }} />
-                    <div style={{ fontWeight: "bold", fontFamily: "monospace", marginLeft: 10 }}>
-                        Purv Joshi
-                        <div style={{ fontWeight: "normal", fontSize: 12 }}>
-                            <div >100 followers</div>
-                            <div>12m</div>
-                        </div>
-                    </div>
-                </div>
-                <div style={{ fontSize: 16, marginTop: 5 }}>
-                    Do coding everyday to build mussel memory
-                </div>
-            </div>
-        </>
-    )
+
+const style = { width: 200, backgroundColor: "white", borderRadius: 10, borderColor: "gray", borderWidth: 1, padding: 20 }
+
+function Post({name, subtitle, time, image, description}) {
+  return <div style={style}> 
+    <div style={{display: "flex"}}>
+      <img src={image} style={{
+        width: 30,
+        height: 30,
+        borderRadius: 20
+      }} />
+      <div style={{fontSize: 10, marginLeft: 10}}>
+        <b>
+          {name}
+        </b>
+        <div>{subtitle}</div>
+        {(time !== undefined) ? <div style={{display: 'flex'}}>
+          <div>{time}</div>      
+          <img src={"https://media.istockphoto.com/id/931336618/vector/clock-vector-icon-isolated.jpg?s=612x612&w=0&k=20&c=I8EBJl8i6olqcrhAtKko74ydFEVbfCQ6s5Pbsx6vfas="} style={{width: 12, height: 12}} />
+        </div> : null}
+      </div>
+    </div>
+    <div style={{fontSize: 12}}>
+     {description}
+    </div>
+ </div>
 }
 
 export default Post;
