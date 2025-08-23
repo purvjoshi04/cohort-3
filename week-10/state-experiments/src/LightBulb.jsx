@@ -1,13 +1,15 @@
-import { useState } from "react"
 import ToggleBulbState from "./ToggleBulbState.jsx";
 import BulbState from "./BulbState.jsx"
+import BulbProvider from "./BulbProvider.jsx";
 
 function LightBulb() {
-    const [bulbOn, setBulbOn] = useState(true);
+
     return (
         <div>
-            <BulbState bulbOn={bulbOn} />
-            <ToggleBulbState setBulbOn={setBulbOn} />
+            <BulbProvider>
+                <BulbState />
+                <ToggleBulbState />
+            </BulbProvider>
         </div>
 
     )
