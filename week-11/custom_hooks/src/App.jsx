@@ -3,7 +3,6 @@ import Counter from "./useCounter.jsx"
 import { useFetch } from "./useFetch.js"
 
 function App() {
-      console.log(typeof(true))
   const [currentPost, setCurrentPost] = useState(1)
   const { post, loading } = useFetch("https://jsonplaceholder.typicode.com/todos/" + currentPost);
   if (loading) {
