@@ -1,20 +1,13 @@
 import './App.css';
-
-import { EmailScreen } from './components/EmailVerify';
-import { VerifyAge } from './components/VerifyAge';
+import { BrowserRouter } from "react-router-dom"
+import { AppRoutes } from './routes/routes';
 
 function App() {
-
   return (
     <>
-    <div className='h-screen bg-[#012d59]'>
-      <VerifyAge 
-      placeholder={"Your Birth Year"}
-      />
-      {/* <EmailScreen 
-        placeholder={"Email"}
-      /> */}
-    </div>
+      <BrowserRouter>
+          <AppRoutes />
+      </BrowserRouter>
     </>
   )
 }

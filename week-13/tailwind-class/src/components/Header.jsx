@@ -14,7 +14,7 @@ export const Header = () => {
                 <div className="text-[#68d5d7]">
                     Webinar
                 </div>
-                <div>.gg</div>
+                <div className="text-white">.gg</div>
             </div>
         </div>
     )

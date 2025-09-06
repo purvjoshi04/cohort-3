@@ -4,7 +4,7 @@ import { Header } from "./Header";
 export const EmailScreen = ({ onClick, placeholder }) => {
     const [value, setValue] = useState("");
     return (
-        <div>
+        <div className="h-screen bg-[#012d59]">
             <Header />
             <div className="flex text-3xl font-semibold text-white justify-center pt-20">
                 Let's Get Started

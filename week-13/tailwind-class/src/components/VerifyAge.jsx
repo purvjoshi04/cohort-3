@@ -4,7 +4,7 @@ import { Header } from "./Header";
 export const VerifyAge = ({ onClick, placeholder }) => {
     const [value, setValue] = useState("");
     return (
-        <div>
+        <div className="h-screen bg-[#012d59]">
             <Header />
             <div className="flex text-3xl text-white font-semibold justify-center pt-8">
                 Verify Your age
