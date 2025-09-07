@@ -4,11 +4,11 @@ import { AppRoutes } from './routes/routes';
 
 function App() {
   return (
-    <>
+    <div className='h-screen bg-[#012d59]'>
       <BrowserRouter>
           <AppRoutes />
       </BrowserRouter>
-    </>
+    </div>
   )
 }
 
