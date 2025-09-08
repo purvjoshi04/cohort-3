@@ -72,15 +72,14 @@ export function Opt() {
         const fullCode = code.join('');
         if (fullCode.length === 6) {
             console.log('OTP Code:', fullCode);
-           // TODO: Add next page location logic here
-            navigate('/')
+            navigate('/hero')
         }
     };
 
     const isCodeComplete = code.every(digit => digit !== '');
 
     return (
-        <div>
+        <div className='h-screen bg-[#012d59]'>
             <Header />
             <div className="flex justify-center pt-20">
                 <div className="text-center">
