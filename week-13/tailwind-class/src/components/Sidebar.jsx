@@ -20,15 +20,19 @@ const useMediaQuery = (query) => {
 
 export const Sidebar = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
-    const isDesktop = useMediaQuery("(min-width: 768px)");
+    const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1024px)");
+    const isDesktop = useMediaQuery("(min-width: 1025px)");
+    const isMobile = useMediaQuery("(max-width: 767px)");
     
     useEffect(() => {
-        if (isDesktop === false) {
-            setSidebarOpen(false)
-        } else {
-            setSidebarOpen(true)
+        if (isMobile) {
+            setSidebarOpen(false);
+        } else if (isTablet) {
+            setSidebarOpen(false);
+        } else if (isDesktop) {
+            setSidebarOpen(true);
         }
-    }, [isDesktop])
+    }, [isMobile, isTablet, isDesktop]);
 
     return (
         <div className={`h-screen bg-black-500 transition-all duration-300 ${sidebarOpen ? 'w-96' : 'w-16'}`}>
