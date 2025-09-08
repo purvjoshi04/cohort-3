@@ -23,7 +23,7 @@ export const Sidebar = () => {
     const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1024px)");
     const isDesktop = useMediaQuery("(min-width: 1025px)");
     const isMobile = useMediaQuery("(max-width: 767px)");
-    
+
     useEffect(() => {
         if (isMobile) {
             setSidebarOpen(false);
@@ -36,8 +36,9 @@ export const Sidebar = () => {
 
     return (
         <div className={`h-screen bg-black-500 transition-all duration-300 ${sidebarOpen ? 'w-96' : 'w-16'}`}>
-            <div className="cursor-pointer pl-1 p-4" onClick={() => setSidebarOpen(!sidebarOpen)}>
-                {sidebarOpen ? <SidebarToggleOut className="w-6 h-6" /> : <SidebarToggleIn className="w-6 h-6" />}
+            <div className={`cursor-pointer p-4 transition-all duration-300 ${sidebarOpen ? 'pl-1' : 'flex items-center justify-center'
+                }`} onClick={() => setSidebarOpen(!sidebarOpen)}>
+                {sidebarOpen ? <SidebarToggleIn className="w-6 h-6" /> : <SidebarToggleOut className="w-6 h-6" />}
             </div>
             {sidebarOpen && (
                 <div className="p-4 text-gray-800">
