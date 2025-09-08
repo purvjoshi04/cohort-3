@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import { SidebarToggleOut } from "./icons/SIdebarToggleOut"
-import { SidebarToggleIn } from "./icons/SIdebarToggleIn"
+import { SidebarToggleOut } from "./icons/SidebarToggleOut"
+import { SidebarToggleIn } from "./icons/SidebarToggleIn"
 
 const useMediaQuery = (query) => {
     const [matches, setMatches] = useState(false);
@@ -11,8 +11,8 @@ const useMediaQuery = (query) => {
             setMatches(media.matches);
         }
         const listener = () => setMatches(media.matches);
-        media.addListener(listener);
-        return () => media.removeListener(listener);
+        media.addEventListener("change" ,listener);
+        return () => media.removeEventListener("change" ,listener);
     }, [matches, query]);
 
     return matches;
@@ -23,7 +23,7 @@ export const Sidebar = () => {
     const isDesktop = useMediaQuery("(min-width: 768px)");
     
     useEffect(() => {
-        if (isDesktop == false) {
+        if (isDesktop === false) {
             setSidebarOpen(false)
         } else {
             setSidebarOpen(true)
@@ -36,7 +36,7 @@ export const Sidebar = () => {
                 {sidebarOpen ? <SidebarToggleOut className="w-6 h-6" /> : <SidebarToggleIn className="w-6 h-6" />}
             </div>
             {sidebarOpen && (
-                <div className="p-4 text-white">
+                <div className="p-4 text-gray-800">
                     <h2>Sidebar Content</h2>
                     <p>Your sidebar content goes here</p>
                 </div>
