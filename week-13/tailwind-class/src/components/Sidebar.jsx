@@ -4,6 +4,7 @@ import { SidebarToggleIn } from "./icons/SidebarToggleIn"
 import television from "../assets/television.png"
 import { useNavigate } from "react-router-dom";
 
+
 const useMediaQuery = (query) => {
     const [matches, setMatches] = useState(false);
 
@@ -27,6 +28,7 @@ export const Sidebar = () => {
     const isDesktop = useMediaQuery("(min-width: 1025px)");
     const isMobile = useMediaQuery("(max-width: 767px)");
     const navigate = useNavigate();
+
     useEffect(() => {
         if (isMobile) {
             setSidebarOpen(false);
@@ -82,7 +84,7 @@ export const Sidebar = () => {
     ];
 
     return (
-        <div className={`h-screen bg-black-500 transition-all duration-300 ${sidebarOpen ? 'w-96' : 'w-16'}`}>
+        <div className={`h-screen bg-black-500 transition-all duration-300 ${sidebarOpen ? 'w-100' : 'w-16'} flex flex-col overflow-hidden`}>
             <div className='flex items-center p-4 transition-all duration-300'>
                 <div
                     className="cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors duration-200"
@@ -91,30 +93,32 @@ export const Sidebar = () => {
                     {sidebarOpen ? <SidebarToggleIn className="w-6 h-6" /> : <SidebarToggleOut className="w-6 h-6" />}
                 </div>
                 {sidebarOpen && (
-                    <div className="bg-[#012d59] rounded-xl ml-4 flex items-center p-2">
-                        <img
-                            src={television}
-                            alt="Webinar Logo"
-                            width={30}
-                            height={40}
-                            className="object-contain"
-                        />
-                        <div className="flex items-baseline ml-1 text-lg pt-0.5 cursor-pointer" onClick={() => navigate("/")}>
-                            <div className="text-white">
-                                Webinar
+                    <div className="px-1 sm:px-3 md:px-4">
+                        <div className="bg-[#012d59] rounded-xl flex items-center justify-center sm:justify-start p-4 sm:p-3">
+                            <img
+                                src={television}
+                                alt="Webinar Logo"
+                                className="object-contain w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"
+                            />
+                            <div
+                                className="flex items-baseline ml-0.5 sm:ml-2 text-base sm:text-lg md:text-xl cursor-pointer"
+                                onClick={() => navigate("/")}
+                            >
+                                <div className="text-white">Webinar</div>
+                                <div className="text-[#68d5d7]">.gg</div>
                             </div>
-                            <div className="text-[#68d5d7]">.gg</div>
                         </div>
                     </div>
                 )}
+
             </div>
-            <nav className="flex-1 px-3 py-2">
+            <nav className="flex-1 px-3 py-2 align-bottom">
                 <ul className="space-y-1">
                     {menuItems.map((item) => (
                         <li key={item.name}>
                             <button onClick={() => setActiveItem(item.name)} className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 ${activeItem === item.name
-                                    ? 'bg-gray-100 text-gray-900 shadow-sm'
-                                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                                ? 'bg-gray-100 text-gray-900 shadow-sm'
+                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
                                 }`}>
                                 <div className={`flex-shrink-0 ${!sidebarOpen ? 'mx-auto' : ''}`}>
                                     {item.icon}
@@ -129,6 +133,27 @@ export const Sidebar = () => {
                     ))}
                 </ul>
             </nav>
+            {sidebarOpen && (
+                <div className="mt-auto p-4 border-t border-gray-100 bg-gray-50 md:hidden">
+                    <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-full bg-gray-300 overflow-hidden flex-shrink-0">
+                            <img
+                                src="https://stock.adobe.com/images/monochrome-icon/65772719"
+                                alt="Profile"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 truncate">
+                                Test User
+                            </p>
+                            <p className="text-xs text-gray-500 truncate">test@gmail.com</p>
+                            <p className="text-xs text-gray-400">9899999882</p>
+                            <p className="text-xs text-gray-400">Delhi, India</p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

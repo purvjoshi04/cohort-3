@@ -7,17 +7,32 @@ export const MainContent = () => {
                 <img src={banner} alt="banner-profile" className="w-full h-full object-cover" />
             </div>
             {/* Mobile Layout - Stack vertically */}
-            <div className="md:hidden space-y-4 p-4">
-                <div className="h-64 rounded-2xl bg-green-300 shadow-lg">
+            <div className="md:hidden space-y-4 p-4 text-black ">
+                <div className="h-64 rounded-2xl bg-white shadow-lg">
                     <div className="p-4">
-                        <h2 className="text-xl font-bold text-gray-800 mb-4">Main Content</h2>
-                        <p className="text-gray-700">Your main content goes here.</p>
+                        <h2 className="flex text-md font-bold mb-4 p-1 bg-gray-100 sm:text-xl gap-2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                        </svg>
+                            <div className="flex gap-1">
+                                Monday, 14 October 2024
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 ml-9">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 ml-5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                                </svg>
+                            </div>
+                        </h2>
+                        <p>Your main content goes here.</p>
                     </div>
                 </div>
                 <div className="h-64 rounded-2xl bg-yellow-200 shadow-lg">
                     <div className="p-4">
-                        <h3 className="font-semibold text-gray-800">Right Panel</h3>
-                        <p className="text-sm text-gray-600 mt-2">Additional content</p>
+                        <h3 className="font-semibold">Right Panel</h3>
+                        <p className="text-sm mt-2">Additional content</p>
                     </div>
                 </div>
             </div>
@@ -67,7 +82,7 @@ export const MainContent = () => {
                     </div>
                     <div className="h-96 rounded-2xl bg-yellow-200 col-span-3 shadow-lg">
                         <div className="p-4">
-                            
+
                         </div>
                     </div>
                 </div>
