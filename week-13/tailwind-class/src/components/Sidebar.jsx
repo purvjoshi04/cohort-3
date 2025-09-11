@@ -85,7 +85,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen, activeItem, setActiveItem
         <div className={`h-screen bg-white border-r border-gray-200 transition-all duration-300 ${sidebarOpen ? 'w-72' : 'w-16'} flex flex-col overflow-hidden shadow-sm`}>
             <div className='flex items-center p-4 transition-all duration-300'>
                 <div
-                    className="cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors duration-200"
+                    className="cursor-pointer hover:bg-gray-400 p-2 rounded-lg transition-colors duration-200"
                     onClick={() => setSidebarOpen(!sidebarOpen)}
                 >
                     {sidebarOpen ? <SidebarToggleIn className="w-6 h-6 text-gray-600" /> : <SidebarToggleOut className="w-6 h-6 text-gray-600" />}
@@ -119,7 +119,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen, activeItem, setActiveItem
                                 className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 ${
                                     activeItem === item.name
                                         ? 'bg-blue-50 text-blue-700 shadow-sm border-r-2 border-blue-500'
-                                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                                        : 'text-gray-600 hover:bg-gray-400 hover:text-gray-800'
                                 }`}
                             >
                                 <div className={`flex-shrink-0 ${!sidebarOpen ? 'mx-auto' : ''}`}>
@@ -148,9 +148,9 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen, activeItem, setActiveItem
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-sm font-semibold text-gray-900 truncate">
-                                Prabhleen Kaur
+                                test user
                             </p>
-                            <p className="text-xs text-gray-500 truncate">prabhleen@gmail.com</p>
+                            <p className="text-xs text-gray-500 truncate">test@gmail.com</p>
                             <p className="text-xs text-gray-400">9899999882</p>
                             <p className="text-xs text-gray-400">Delhi, India</p>
                         </div>

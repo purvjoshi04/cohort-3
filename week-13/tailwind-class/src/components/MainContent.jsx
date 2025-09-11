@@ -42,7 +42,7 @@ export const MainContent = ({ sidebarOpen, setSidebarOpen, isMobile }) => {
                                     />
                                     <div>
                                         <p className="text-sm text-gray-500">Monday, 14 October</p>
-                                        <h2 className="text-2xl font-bold text-gray-800">Good morning, Prabhleen! 👋</h2>
+                                        <h2 className="text-2xl font-bold text-gray-800">Good morning, test user! 👋</h2>
                                     </div>
                                 </div>
                             </div>
@@ -57,10 +57,10 @@ export const MainContent = ({ sidebarOpen, setSidebarOpen, isMobile }) => {
                                             <ChevronDown className="w-4 h-4 text-gray-400" />
                                         </div>
                                         <div className="flex items-center space-x-2">
-                                            <button className="p-2 hover:bg-gray-100 rounded-lg">
+                                            <button className="p-2 hover:bg-gray-400 rounded-lg">
                                                 <ChevronLeft className="w-4 h-4 text-gray-600" />
                                             </button>
-                                            <button className="p-2 hover:bg-gray-100 rounded-lg">
+                                            <button className="p-2 hover:bg-gray-400 rounded-lg">
                                                 <ChevronRight className="w-4 h-4 text-gray-600" />
                                             </button>
                                         </div>
@@ -68,7 +68,7 @@ export const MainContent = ({ sidebarOpen, setSidebarOpen, isMobile }) => {
                                 </div>
                                 <div className="divide-y divide-gray-100">
                                     {webinars.map((webinar, index) => (
-                                        <div key={index} className="p-6 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                                        <div key={index} className="p-6 flex items-center justify-between hover:bg-gray-400 transition-colors">
                                             <div className="flex items-center space-x-4">
                                                 <div className="text-center">
                                                     <div className="font-bold text-lg text-gray-800">{webinar.time}</div>
