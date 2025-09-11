@@ -3,7 +3,7 @@ import { SidebarToggleOut } from "./icons/SidebarToggleOut"
 import { SidebarToggleIn } from "./icons/SidebarToggleIn"
 import television from "../assets/television.png"
 import { useNavigate } from "react-router-dom";
-
+import user from "../assets/user.jpg"
 
 const useMediaQuery = (query) => {
     const [matches, setMatches] = useState(false);
@@ -21,14 +21,12 @@ const useMediaQuery = (query) => {
     return matches;
 };
 
-export const Sidebar = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(true);
-    const [activeItem, setActiveItem] = useState("Home");
+export const Sidebar = ({ sidebarOpen, setSidebarOpen, activeItem, setActiveItem }) => {
+    const navigate = useNavigate()
     const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1024px)");
     const isDesktop = useMediaQuery("(min-width: 1025px)");
     const isMobile = useMediaQuery("(max-width: 767px)");
-    const navigate = useNavigate();
-
+    
     useEffect(() => {
         if (isMobile) {
             setSidebarOpen(false);
@@ -37,7 +35,7 @@ export const Sidebar = () => {
         } else if (isDesktop) {
             setSidebarOpen(true);
         }
-    }, [isMobile, isTablet, isDesktop]);
+    }, [isMobile, isTablet, isDesktop, setSidebarOpen]);
 
     const menuItems = [
         {
@@ -84,13 +82,13 @@ export const Sidebar = () => {
     ];
 
     return (
-        <div className={`h-screen bg-black-500 transition-all duration-300 ${sidebarOpen ? 'w-100' : 'w-16'} flex flex-col overflow-hidden`}>
+        <div className={`h-screen bg-white border-r border-gray-200 transition-all duration-300 ${sidebarOpen ? 'w-72' : 'w-16'} flex flex-col overflow-hidden shadow-sm`}>
             <div className='flex items-center p-4 transition-all duration-300'>
                 <div
                     className="cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors duration-200"
                     onClick={() => setSidebarOpen(!sidebarOpen)}
                 >
-                    {sidebarOpen ? <SidebarToggleIn className="w-6 h-6" /> : <SidebarToggleOut className="w-6 h-6" />}
+                    {sidebarOpen ? <SidebarToggleIn className="w-6 h-6 text-gray-600" /> : <SidebarToggleOut className="w-6 h-6 text-gray-600" />}
                 </div>
                 {sidebarOpen && (
                     <div className="px-1 sm:px-3 md:px-4">
@@ -110,16 +108,20 @@ export const Sidebar = () => {
                         </div>
                     </div>
                 )}
-
             </div>
-            <nav className="flex-1 px-3 py-2 align-bottom">
+            
+            <nav className="flex-1 px-3 py-2">
                 <ul className="space-y-1">
                     {menuItems.map((item) => (
                         <li key={item.name}>
-                            <button onClick={() => setActiveItem(item.name)} className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 ${activeItem === item.name
-                                ? 'bg-gray-100 text-gray-900 shadow-sm'
-                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
-                                }`}>
+                            <button 
+                                onClick={() => setActiveItem(item.name)} 
+                                className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 ${
+                                    activeItem === item.name
+                                        ? 'bg-blue-50 text-blue-700 shadow-sm border-r-2 border-blue-500'
+                                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                                }`}
+                            >
                                 <div className={`flex-shrink-0 ${!sidebarOpen ? 'mx-auto' : ''}`}>
                                     {item.icon}
                                 </div>
@@ -133,21 +135,22 @@ export const Sidebar = () => {
                     ))}
                 </ul>
             </nav>
+            
             {sidebarOpen && (
-                <div className="mt-auto p-4 border-t border-gray-100 bg-gray-50 md:hidden">
+                <div className="mt-auto p-4 border-t border-gray-200 bg-gray-50">
                     <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-full bg-gray-300 overflow-hidden flex-shrink-0">
+                        <div className="w-12 h-12 rounded-2xl bg-gray-300 overflow-hidden flex-shrink-0">
                             <img
-                                src="https://stock.adobe.com/images/monochrome-icon/65772719"
+                                src={user}
                                 alt="Profile"
                                 className="w-full h-full object-cover"
                             />
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-900 truncate">
-                                Test User
+                            <p className="text-sm font-semibold text-gray-900 truncate">
+                                Prabhleen Kaur
                             </p>
-                            <p className="text-xs text-gray-500 truncate">test@gmail.com</p>
+                            <p className="text-xs text-gray-500 truncate">prabhleen@gmail.com</p>
                             <p className="text-xs text-gray-400">9899999882</p>
                             <p className="text-xs text-gray-400">Delhi, India</p>
                         </div>

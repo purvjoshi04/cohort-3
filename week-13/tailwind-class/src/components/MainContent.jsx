@@ -1,92 +1,127 @@
-import banner from "../assets/_.jpeg"
+import React from 'react';
+import { ChevronDown, ChevronLeft, ChevronRight, Plus, Video } from 'lucide-react';
+import { SidebarToggleOut } from './icons/SidebarToggleOut';
+import banner from "../assets/_.jpeg";
+import user from "../assets/user.jpg"
 
-export const MainContent = () => {
+export const MainContent = ({ sidebarOpen, setSidebarOpen, isMobile }) => {
+    const webinars = [
+        { time: "11:30 AM", title: "UX Webinar", status: "Live", isLive: true },
+        { time: "11:30 AM", title: "My first Webinar", status: "Upcoming", isLive: false },
+        { time: "11:30 AM", title: "Important Webinar", status: "Upcoming", isLive: false },
+        { time: "11:30 AM", title: "Webinar 1", status: "Upcoming", isLive: false }
+    ];
+
     return (
-        <div className="w-full min-h-screen">
-            <div className="h-16 sm:h-40 md:h-48 lg:h-44 xl:h-48 w-full overflow-hidden">
-                <img src={banner} alt="banner-profile" className="w-full h-full object-cover" />
+        <>
+            <div className="h-50 relative overflow-hidden">
+                <img
+                    src={banner}
+                    alt="Background"
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
+                {isMobile && !sidebarOpen && (
+                    <button
+                        onClick={() => setSidebarOpen(true)}
+                        className="absolute top-4 left-4 p-2 bg-opacity-20 rounded-lg text-white hover:bg-opacity-30 transition-all z-10"
+                    >
+                        <SidebarToggleOut />
+                    </button>
+                )}
             </div>
-            {/* Mobile Layout - Stack vertically */}
-            <div className="md:hidden space-y-4 p-4 text-black ">
-                <div className="h-64 rounded-2xl bg-white shadow-lg">
-                    <div className="p-4">
-                        <h2 className="flex text-md font-bold mb-4 p-1 bg-gray-100 sm:text-xl gap-2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                        </svg>
-                            <div className="flex gap-1">
-                                Monday, 14 October 2024
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 ml-9">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 ml-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                                </svg>
+            <div className="flex-1 overflow-auto">
+                <div className="max-w-7xl mx-auto p-6">
+                    <div className="flex flex-col lg:flex-row gap-6">
+                        <div className="lg:w-2/3">
+                            <div className="bg-white rounded-2xl p-6 shadow-sm mb-6">
+                                <div className="flex items-center mb-4">
+                                    <img
+                                        src={user}
+                                        alt="Profile"
+                                        className="w-16 h-16 rounded-2xl object-cover mr-4"
+                                    />
+                                    <div>
+                                        <p className="text-sm text-gray-500">Monday, 14 October</p>
+                                        <h2 className="text-2xl font-bold text-gray-800">Good morning, Prabhleen! 👋</h2>
+                                    </div>
+                                </div>
                             </div>
-                        </h2>
-                        <p>Your main content goes here.</p>
-                    </div>
-                </div>
-                <div className="h-64 rounded-2xl bg-yellow-200 shadow-lg">
-                    <div className="p-4">
-                        <h3 className="font-semibold">Right Panel</h3>
-                        <p className="text-sm mt-2">Additional content</p>
+                            <div className="bg-white rounded-2xl shadow-sm">
+                                <div className="p-6 border-b border-gray-100">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center space-x-3">
+                                            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            <span className="font-semibold text-gray-800">Monday, 14 October 2024</span>
+                                            <ChevronDown className="w-4 h-4 text-gray-400" />
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <button className="p-2 hover:bg-gray-100 rounded-lg">
+                                                <ChevronLeft className="w-4 h-4 text-gray-600" />
+                                            </button>
+                                            <button className="p-2 hover:bg-gray-100 rounded-lg">
+                                                <ChevronRight className="w-4 h-4 text-gray-600" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="divide-y divide-gray-100">
+                                    {webinars.map((webinar, index) => (
+                                        <div key={index} className="p-6 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                                            <div className="flex items-center space-x-4">
+                                                <div className="text-center">
+                                                    <div className="font-bold text-lg text-gray-800">{webinar.time}</div>
+                                                    <div className="text-sm text-gray-500">11:30 AM</div>
+                                                </div>
+                                                <div className="flex items-center space-x-3">
+                                                    {webinar.isLive ? (
+                                                        <div className="flex items-center space-x-2">
+                                                            <span className="px-2 py-1 bg-red-100 text-red-600 text-xs font-medium rounded-full">Live</span>
+                                                            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="flex items-center space-x-2">
+                                                            <span className="px-2 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded-full">Upcoming</span>
+                                                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                                        </div>
+                                                    )}
+                                                    <span className="font-medium text-gray-800">{webinar.title}</span>
+                                                </div>
+                                            </div>
+                                            {index === 1 && (
+                                                <div className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center">
+                                                    <span className="text-white text-sm font-bold">P</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="lg:w-1/3 space-y-4">
+                            <div className="bg-teal-500 rounded-2xl p-6 text-white cursor-pointer hover:bg-teal-600 transition-colors group">
+                                <div className="flex items-center justify-center w-12 h-12 bg-opacity-20 rounded-xl mb-4 group-hover:bg-opacity-30 transition-colors">
+                                    <Plus className="w-6 h-6" />
+                                </div>
+                                <h3 className="font-bold text-lg mb-2">Schedule a Webinar</h3>
+                                <p className="text-teal-100 text-sm">Create and schedule your next webinar session</p>
+                            </div>
+                            <div className="bg-teal-500 rounded-2xl p-6 text-white cursor-pointer hover:bg-teal-600 transition-colors group">
+                                <div className="flex items-center justify-center w-12 h-12 bg-opacity-20 rounded-xl mb-4 group-hover:bg-opacity-30 transition-colors">
+                                    <Video className="w-6 h-6" />
+                                </div>
+                                <h3 className="font-bold text-lg mb-2">Open Recordings</h3>
+                                <p className="text-teal-100 text-sm">Access your webinar recordings and analytics</p>
+                            </div>
+                            <div className="bg-teal-500 rounded-2xl p-6 text-white cursor-pointer hover:bg-teal-600 transition-colors">
+                                <h3 className="font-bold text-lg mb-2">Join</h3>
+                                <p className="text-teal-100 text-sm">Quick access to join meetings</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            {/* Tablet Layout (768px-1024px) */}
-            <div className="hidden md:block lg:hidden">
-                <div className="mx-4 md:mx-8 mb-4 md:mb-6 -translate-y-10">
-                    <div className="h-48 rounded-2xl bg-red-200 shadow-lg">
-                        <div className="p-4 md:p-6">
-                            <h3 className="text-lg font-semibold text-gray-800">Left Panel</h3>
-                            <p className="text-sm text-gray-600 mt-2">This content is now displayed horizontally for better tablet experience</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mx-4 md:mx-8">
-                    <div className="md:col-span-2 min-h-96 rounded-2xl bg-green-300 shadow-lg">
-                        <div className="p-4 md:p-6">
-                            <h2 className="text-xl font-bold text-gray-800 mb-4">Main Content</h2>
-                            <p className="text-gray-700">Your main content goes here. This section takes up 2/3 of the width on tablet.</p>
-                        </div>
-                    </div>
-
-                    <div className="h-96 rounded-2xl bg-yellow-200 shadow-lg">
-                        <div className="p-4">
-                            <h3 className="font-semibold text-gray-800">Right Panel</h3>
-                            <p className="text-sm text-gray-600 mt-2">Additional content takes up 1/3 of the width.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Desktop Layout (1024px+) */}
-            <div className="hidden lg:block">
-                <div className="grid grid-cols-12 gap-8 p-8">
-                    <div className="h-85 rounded-2xl bg-red-200 col-span-3 -translate-y-24 shadow-lg">
-                        <div className="p-4">
-                            <h3 className="font-semibold text-gray-800">Left Panel</h3>
-                            <p className="text-sm text-gray-600 mt-2">Content here</p>
-                        </div>
-                    </div>
-                    <div className="h-96 rounded-2xl bg-green-300 col-span-6 shadow-lg">
-                        <div className="p-6">
-                            <h2 className="text-xl font-bold text-gray-800 mb-4">Main Content</h2>
-                            <p className="text-gray-700">Your main content goes here. This section will adapt to different screen sizes.</p>
-                        </div>
-                    </div>
-                    <div className="h-96 rounded-2xl bg-yellow-200 col-span-3 shadow-lg">
-                        <div className="p-4">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
+        </>
+    );
+};
