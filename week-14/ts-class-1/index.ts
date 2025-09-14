@@ -74,18 +74,70 @@ let person: People = {
 interface PeopleNew {
     name: string,
     age: number,
+    isLegal(): boolean
 }
 
 
-class Manager implements PeopleNew {
-    name: string;
-    age: number;
-    constructor(name: string, age: number) {
+class ManagerClass implements PeopleNew {
+    constructor(public name: string, public age: number) {
         this.name = name;
         this.age = age;
     }
+    isLegal() {
+        return this.age > 18
+    }
 }
 
-let user = new Manager("John", 23)
+let user = new ManagerClass("John", 23);
+console.log(user.isLegal());
 
-console.log(user)
+
+type Employee = {
+    name: string;
+    startDate: string;
+}
+
+type Manager = {
+    name: string;
+    department: string;
+}
+
+type TeamLead = Employee & Manager;
+
+let e: Employee = {
+    name: "John",
+    startDate: "01/02/2000"
+}
+
+let m: Manager = {
+    name: "Marcus",
+    department: "Product"
+}
+
+let t: TeamLead = {
+    name: "test",
+    startDate: "12/3/1995",
+    department: "Product Lead"
+}
+
+
+interface Users {
+    firstName: string
+    lastName: string
+    age: number
+}
+
+
+function isLegalOrNot(users: Users[]) {
+    return users.filter(x => x.age >= 18)
+}
+
+console.log(isLegalOrNot([{
+    firstName: "Purv",
+    lastName: "Joshi",
+    age: 21
+}, {
+    firstName: "User2",
+    lastName: "user2",
+    age: 12
+}]));
