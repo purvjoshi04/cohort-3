@@ -1,30 +1,28 @@
-import { SidebarIcon } from "../icons/SidebarIcon"
-import startImg from "../assets/star.jpg"
-import { LockIcon } from "../icons/LockeIcon"
+import { useState } from "react";
+import { SidebarIcon } from "../icons/SidebarIcon";
+import startImg from "../assets/star.jpg";
+import { LockIcon } from "../icons/LockeIcon";
 
 export const Sidebar = () => {
+    const [open, setOpen] = useState(true);
+
     return (
-        <div className="h-screen bg-[#323332] w-65 font-bold">
-            <div className="flex items-center justify-around">
-                <div className="mt-5 mr-10">
-                    My Lists
-                </div>
-                <div className="mt-5">
+        <aside
+            className={`h-screen bg-[#323332] font-bold text-white transition-all duration-300 ${open ? "w-64" : "w-16"
+                }`}
+        >
+            <div className="flex items-center justify-between p-4 ml-2">
+                {open && <span>My Lists</span>}
+                <button onClick={() => setOpen(!open)} className="cursor-pointer">
                     <SidebarIcon />
-                </div>
+                </button>
             </div>
-            <div className="pl-9 mt-3">
-                Create by me
-            </div>
-            <div className="bg-[#474755] p-3 mt-3 pl-9 flex gap-2">
-                <div>
-                    <img src={startImg} height={30} width={30}/>
-                </div>
-                Favorite
-                <div className="flex">
+            {open && <div className="pl-4 mt-3 text-gray-300 text-sm">Created by me</div>}
+            <div className="bg-[#474755] p-3 mt-3 pl-3.5 flex items-center gap-2 rounded-lg mx-2">
+                <img src={startImg} alt="star" className="h-5 w-5" />
+                {open && <span className="flex-1">Favorite</span>}
                 <LockIcon />
-                </div>
             </div>
-        </div>
-    )
-}
+        </aside>
+    );
+};
