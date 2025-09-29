@@ -5,15 +5,17 @@ import { ChevronDownIcon } from "../icons/ChevronDownICon";
 import { PlayIcon } from "../icons/PlayIcon";
 import { GitForkIcon } from "../icons/GitForkIcon";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import { ProblemsList } from "../components/ProblemsList";
+import { RefreshIcon } from "../icons/RefreshIcon";
 
 export const Dashboard = () => {
     const total = 19;
     const solved = 19;
     const percentage = (solved / total) * 100;
     return (
-        <div className="flex bg-[#1a1a1a] min-h-screen text-white">
+        <div className="flex bg-[#1a1a1a] text-white">
             <Sidebar />
-            <main className="flex p-18 gap-6 h-185">
+            <main className="p-14 h-185 pr-10">
                 <div className="w-110 bg-[#262626] rounded-xl p-6 shadow-lg">
                     <div className="w-20 mt-1">
                         <img src={startImg} />
@@ -33,10 +35,14 @@ export const Dashboard = () => {
                     </div>
                     <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
                     <div className="font-semibold">
-                        Progress
+                        <div className="flex items-center justify-between mb-4">
+                            <span>Progress</span>
+                            <button>
+                                <RefreshIcon />
+                            </button>
+                        </div>
                         <div className="flex gap-2">
-
-                            <div className="bg-[#323332] h-56 w-72 rounded flex items-center justify-center mt-2">
+                            <div className="bg-[#323332] h-57 w-72 rounded flex items-center justify-center">
                                 <div className="relative w-45">
                                     <CircularProgressbar
                                         value={percentage}
@@ -57,19 +63,19 @@ export const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                <div className="bg-[#323332] h-19 w-30 mt-2 rounded flex flex-col justify-center items-center">
-                                    <span className="text-green-400 font-semibold">Easy</span>
+                            <div className="flex flex-col gap-2">
+                                <div className="bg-[#323332] h-17.5 w-28 rounded flex flex-col justify-center items-center">
+                                    <span className="text-green-400 font-semibold text-sm">Easy</span>
                                     <span className="text-white">11/11</span>
                                 </div>
 
-                                <div className="bg-[#323332] h-16.5 w-30 mt-2 rounded flex flex-col justify-center items-center">
-                                    <span className="text-yellow-400 font-semibold">Medium</span>
+                                <div className="bg-[#323332] h-17.5 w-28 rounded flex flex-col justify-center items-center">
+                                    <span className="text-yellow-400 font-semibold text-sm">Medium</span>
                                     <span className="text-white">7/7</span>
                                 </div>
 
-                                <div className="bg-[#323332] h-16.5 w-30 mt-2 rounded flex flex-col justify-center items-center">
-                                    <span className="text-red-400 font-semibold">Hard</span>
+                                <div className="bg-[#323332] h-17.5 w-28 rounded flex flex-col justify-center items-center">
+                                    <span className="text-red-400 font-semibold text-sm">Hard</span>
                                     <span className="text-white">1/1</span>
                                 </div>
                             </div>
@@ -77,6 +83,7 @@ export const Dashboard = () => {
                     </div>
                 </div>
             </main>
+            <ProblemsList />
         </div>
     );
 };
