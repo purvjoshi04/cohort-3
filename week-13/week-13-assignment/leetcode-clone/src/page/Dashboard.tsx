@@ -1,4 +1,3 @@
-import { Sidebar } from "../components/Sidebar";
 import startImg from "../assets/star.jpg";
 import { LockIcon } from "../icons/LockeIcon";
 import { ChevronDownIcon } from "../icons/ChevronDownICon";
@@ -7,6 +6,7 @@ import { GitForkIcon } from "../icons/GitForkIcon";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { ProblemsList } from "../components/ProblemsList";
 import { RefreshIcon } from "../icons/RefreshIcon";
+import Sidebar from "../components/Sidebar";
 
 export const Dashboard = () => {
     const total = 19;

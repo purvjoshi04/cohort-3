@@ -30,7 +30,7 @@ export const ProblemsList = () => {
                 <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-[#323332] m-3 w-4xl">
                     <div className="flex items-center gap-3">
                         <span className="text-green-500">✔</span>
-                        <span className="text-sm">{list.number}. {list.title}</span>
+                        <span className="text-sm">{list.key}. {list.title}</span>
                     </div>
                     <span className="text-sm text-green-500">{list.Difficulty}</span>
                 </div>
