@@ -1,0 +1,21 @@
+{
+  "name": "prisma-class",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist",
+    "dev": "bun run build && bun run src/index.ts",
+    "start": "bun run build && bun run ./dist/index.js"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prisma": "^6.16.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.3"
+  }
+}
