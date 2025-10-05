@@ -1,13 +1,10 @@
-// Global variables
 let currentUser = null;
 let currentUserType = null;
 let isLoginMode = true;
 let currentLoginType = 'user';
 
-// API Base URL - Update this to match your backend
-const API_BASE = 'http://localhost:4221'; // Change this to your backend URL
+const API_BASE = 'http://localhost:4221';
 
-// Common API endpoints based on 100xdevs course selling app structure
 const API_ENDPOINTS = {
     user: {
         signup: '/user/signup',
@@ -25,23 +22,18 @@ const API_ENDPOINTS = {
     }
 };
 
-// Initialize the app
 document.addEventListener('DOMContentLoaded', function () {
     loadPreviewCourses();
-
-    // Set up form event listeners
     document.getElementById('authForm').addEventListener('submit', handleAuth);
     document.getElementById('createCourseForm').addEventListener('submit', handleCreateCourse);
 });
 
-// Show specific page
 function showPage(pageId) {
     const pages = document.querySelectorAll('.page');
     pages.forEach(page => page.classList.remove('active'));
     document.getElementById(pageId).classList.add('active');
 }
 
-// Show login modal
 function showLoginModal(type) {
     currentLoginType = type;
     isLoginMode = true;
@@ -59,7 +51,6 @@ function showLoginModal(type) {
     clearForm();
 }
 
-// Switch between login and signup
 function switchAuthMode() {
     isLoginMode = !isLoginMode;
     const title = document.getElementById('modalTitle');
@@ -78,7 +69,6 @@ function switchAuthMode() {
     clearForm();
 }
 
-// Handle authentication
 async function handleAuth(e) {
     e.preventDefault();
 
@@ -101,12 +91,10 @@ async function handleAuth(e) {
         const data = await response.json();
 
         if (response.ok) {
-            // Store token from response - could be data.token or data.jwt
             const token = data.token || data.jwt || data.accessToken;
             currentUser = { email, token, id: data.userId || data.id };
             currentUserType = currentLoginType;
 
-            // Update UI
             updateNavForLoggedInUser();
             closeModal();
 
@@ -126,7 +114,6 @@ async function handleAuth(e) {
     }
 }
 
-// Show user dashboard
 function showUserDashboard() {
     document.getElementById('userName').textContent = currentUser.email;
     showPage('userDashboard');
@@ -134,19 +121,16 @@ function showUserDashboard() {
     loadBrowseCourses();
 }
 
-// Show admin dashboard
 function showAdminDashboard() {
     showPage('adminDashboard');
     loadAdminCourses();
 }
 
-// Load courses for preview
 async function loadPreviewCourses() {
     try {
         const response = await fetch(`${API_BASE}${API_ENDPOINTS.course.preview}`);
         if (response.ok) {
             const data = await response.json();
-            // Handle different response structures
             const courses = data.courses || data || [];
             displayCourses(courses, 'previewCourseGrid', false);
         } else {
@@ -157,7 +141,6 @@ async function loadPreviewCourses() {
     }
 }
 
-// Load user purchases
 async function loadUserPurchases() {
     if (!currentUser) return;
 
@@ -180,7 +163,6 @@ async function loadUserPurchases() {
     }
 }
 
-// Load courses for browsing (user)
 async function loadBrowseCourses() {
     try {
         const response = await fetch(`${API_BASE}${API_ENDPOINTS.course.preview}`);
@@ -196,7 +178,6 @@ async function loadBrowseCourses() {
     }
 }
 
-// Load admin courses
 async function loadAdminCourses() {
     if (!currentUser) return;
 
@@ -219,7 +200,6 @@ async function loadAdminCourses() {
     }
 }
 
-// Display courses in grid
 function displayCourses(courses, gridId, showPurchased = false, showPurchaseButton = false) {
     const grid = document.getElementById(gridId);
     grid.innerHTML = '';
@@ -232,8 +212,6 @@ function displayCourses(courses, gridId, showPurchased = false, showPurchaseButt
     courses.forEach(course => {
         const courseCard = document.createElement('div');
         courseCard.className = 'course-card';
-
-        // Handle different course object structures
         const courseId = course._id || course.id;
         const courseTitle = course.title || course.name || 'Untitled Course';
         const courseDescription = course.description || 'No description available';
@@ -269,17 +247,14 @@ function displayCourses(courses, gridId, showPurchased = false, showPurchaseButt
     });
 }
 
-// Show course details
 async function showCourseDetail(courseId) {
     try {
-        // Try to fetch detailed course info
         const response = await fetch(`${API_BASE}/courses/${courseId}`);
         let courseData = null;
 
         if (response.ok) {
             courseData = await response.json();
         } else {
-            // If specific course endpoint doesn't exist, show basic info
             courseData = { _id: courseId, title: 'Course Details', description: 'Loading...' };
         }
 
@@ -315,7 +290,6 @@ async function showCourseDetail(courseId) {
     }
 }
 
-// Purchase course
 async function purchaseCourse(courseId) {
     if (!currentUser || currentUserType !== 'user') {
         alert('Please login as a user to purchase courses.');
@@ -323,7 +297,6 @@ async function purchaseCourse(courseId) {
     }
 
     try {
-        // Common purchase endpoint patterns
         let purchaseUrl = `${API_BASE}/user/courses/${courseId}`;
 
         const response = await fetch(purchaseUrl, {
@@ -349,14 +322,12 @@ async function purchaseCourse(courseId) {
     }
 }
 
-// Show create course modal
 function showCreateCourseModal() {
     document.getElementById('createCourseModal').classList.add('active');
     document.getElementById('createCourseForm').reset();
     document.getElementById('createCourseMessage').textContent = '';
 }
 
-// Handle create course
 async function handleCreateCourse(e) {
     e.preventDefault();
 
@@ -391,7 +362,7 @@ async function handleCreateCourse(e) {
         if (response.ok) {
             showMessage(messageDiv, 'Course created successfully!', 'success');
             loadAdminCourses();
-            loadPreviewCourses(); // Refresh preview courses as well
+            loadPreviewCourses();
             setTimeout(() => closeCreateCourseModal(), 1500);
         } else {
             showMessage(messageDiv, data.message || data.error || 'Failed to create course', 'error');
@@ -402,7 +373,6 @@ async function handleCreateCourse(e) {
     }
 }
 
-// Switch user tabs
 function switchUserTab(tab) {
     const purchases = document.getElementById('userPurchases');
     const browse = document.getElementById('userBrowse');
@@ -422,18 +392,10 @@ function switchUserTab(tab) {
     }
 }
 
-// Switch preview tabs
-function switchTab(tab) {
-    // For now, we only have preview tab
-    // You can extend this for other tabs
-}
-
-// Logout
 function logout() {
     currentUser = null;
     currentUserType = null;
 
-    // Reset UI
     document.getElementById('userLoginBtn').classList.remove('hidden');
     document.getElementById('adminLoginBtn').classList.remove('hidden');
     document.getElementById('logoutBtn').classList.add('hidden');
@@ -441,14 +403,12 @@ function logout() {
     showPage('home');
 }
 
-// Update navigation for logged in user
 function updateNavForLoggedInUser() {
     document.getElementById('userLoginBtn').classList.add('hidden');
     document.getElementById('adminLoginBtn').classList.add('hidden');
     document.getElementById('logoutBtn').classList.remove('hidden');
 }
 
-// Modal functions
 function closeModal() {
     document.getElementById('loginModal').classList.remove('active');
     clearForm();
@@ -462,7 +422,6 @@ function closeCourseDetailModal() {
     document.getElementById('courseDetailModal').classList.remove('active');
 }
 
-// Utility functions
 function clearForm() {
     document.getElementById('authForm').reset();
     document.getElementById('authMessage').textContent = '';
