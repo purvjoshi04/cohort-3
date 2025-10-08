@@ -9,7 +9,7 @@ export const Navbar = ({ isAuthenticated = false }) => {
     return (
         <div className="fixed top-0 left-0 right-0 px-4 py-6">
             <div className="max-w-7xl mx-auto">
-                <div className="bg-white/10 backdrop-blur-md px-6 py-4 flex justify-between items-center rounded-2xl border border-white/10">
+                <div className="bg-[#f6f6f6] backdrop-blur-md px-6 py-4 flex justify-between items-center rounded-2xl border border-white">
                     <div className="text-xl md:text-2xl font-bold text-white">
                         CourseHub
                     </div>
