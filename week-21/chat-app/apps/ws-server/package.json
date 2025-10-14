@@ -1,0 +1,21 @@
+{
+  "name": "ws-server",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --port=3002 --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir ./dist --target node",
+    "start": "node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/ws": "^8.18.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}
